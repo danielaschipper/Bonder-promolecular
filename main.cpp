@@ -196,7 +196,7 @@ void runAll(double res, double cutoff,std::string outputfile,int size, wfnData* 
 	//set up threadpool
 	boost::asio::io_service ioService;
 	boost::thread_group threadpool;
-	std::auto_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(ioService));
+	std::unique_ptr<boost::asio::io_service::work> work(new boost::asio::io_service::work(ioService));
 
 	int numOfThreads = std::thread::hardware_concurrency();
 	std::cout << numOfThreads << std::endl;
@@ -268,7 +268,7 @@ void useInputFile(char* filename)
 	}
 	catch (const std::invalid_argument& ia) 
 	{
-		std::cout << "error in parssing wavefunction data, if you have more than 100 atoms 'bonder fixwfn' must be run" << std::endl;
+		std::cout << "error in parssing XYZ data" << std::endl;
 		return;
 	}
 
@@ -447,7 +447,7 @@ int main(int argc, char *argv[])
 		}
 		catch (const std::invalid_argument& ia) 
 		{
-			std::cout << "error in parssing wavefunction data, if you have more than 100 atoms 'bonder fixwfn' must be run" << std::endl;
+			std::cout << "error in parssing XYZ data" << std::endl;
 			return 1;
 		}
 	}
